@@ -67,3 +67,31 @@ body {
 .btn-primary:hover {
     background-color: #002b5e;
 }
+
+.hero h1, .hero p {
+    color: white !important;
+}
+
+.card {
+    border-radius: 10px;
+    border: none;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background-color: #004085;
+    border: none;
+    padding: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #002b5e;
+}
+
