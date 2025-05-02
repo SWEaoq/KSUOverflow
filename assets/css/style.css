@@ -137,3 +137,18 @@ body {
 #logo{
     background: transparent;
 }
+
+
+
+
+
+
+.vote-controls{
+     font-size: 1.5rem; text-align: center; margin-bottom: 1rem; 
+}
+.vote-score{
+     display: inline-block; width: 2rem; text-align: center; font-weight: bold; 
+}
+button.btn-link.active{
+     color: orange; 
+}  /* highlight active vote */
