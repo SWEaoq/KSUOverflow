@@ -5,7 +5,7 @@ include 'config.php';
 
 // 1) Only accept POST & logged-in users
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'error' => 'Unauthorized']);
+    echo json_encode(['success' => false, 'error' => 'Please login']);
     exit;
 }
 

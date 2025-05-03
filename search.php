@@ -108,7 +108,7 @@ $count = count($questions);
         <select name="sort" class="form-select form-select-sm me-2" onchange="this.form.submit()">
           <option value="newest" <?= $raw === 'newest' ? 'selected' : '' ?>>Newest</option>
           <option value="oldest" <?= $raw === 'oldest'  ? 'selected' : '' ?>>Oldest</option>
-          <option value="votes"  <?= $raw === 'votes'   ? 'selected' : '' ?>>Most Voted</option>
+          <option value="votes"  <?= $raw === 'votes'   ? 'selected' : '' ?>>Highest Votes</option>
         </select>
       </form>
     </div>
