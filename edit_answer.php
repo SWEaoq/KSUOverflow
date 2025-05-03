@@ -1,5 +1,4 @@
 <?php
-// edit_answer.php
 session_start();
 include 'config.php';
 

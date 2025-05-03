@@ -1,5 +1,4 @@
 <?php
-// ask_process.php
 session_start();
 include 'config.php';  // defines $conn
 

@@ -1,8 +1,7 @@
 <?php
-// answers_ajax.php
 
 session_start();
-include 'config.php';  // gives you $conn
+include 'config.php';  //$conn
 
 $qid    = isset($_GET['question_id']) ? (int)$_GET['question_id'] : 0;
 $userId = isset($_SESSION['user_id'])   ? (int)$_SESSION['user_id']   : 0;

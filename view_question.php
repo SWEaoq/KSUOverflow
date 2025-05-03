@@ -1,8 +1,7 @@
 <?php
-// view_question.php
 
 session_start();
-include 'config.php';   // provides $conn
+include 'config.php';   // $conn
 
 // 1) Validate question ID
 $qid = isset($_GET['id']) ? (int)$_GET['id'] : 0;

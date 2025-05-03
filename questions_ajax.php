@@ -1,11 +1,8 @@
 <?php
-// questions_ajax.php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 session_start();
 include 'config.php';
 
-// Fetch latest 10 questions (for example)
+// Fetch latest 10 questions 
 $sql = "
   SELECT 
     q.id,

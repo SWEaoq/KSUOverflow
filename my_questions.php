@@ -36,7 +36,7 @@ $qRes = mysqli_query($conn, $sqlQ);
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- 2) Include your header/nav (it won’t touch $qRes) -->
+  <!-- 2) Include header/nav  -->
   <?php include 'header.php'; ?>
 
   <div class="container mt-5">

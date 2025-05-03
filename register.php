@@ -1,10 +1,7 @@
 <?php
-// register.php
-require_once 'config.php';   // starts session and provides $conn
 
-// Grab any error message set by register_process.php
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['error']);
+include 'config.php';   // $conn
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,9 +19,6 @@ unset($_SESSION['error']);
   <?php include 'header.php'; ?>
 
   <div class="container mt-5">
-    <?php if ($error): ?>
-      <div class="alert alert-danger"><?= htmlspecialchars($error, ENT_QUOTES) ?></div>
-    <?php endif; ?>
 
     <div class="row justify-content-center">
       <div class="col-md-6">

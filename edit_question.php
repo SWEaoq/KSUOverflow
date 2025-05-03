@@ -12,9 +12,7 @@ include 'config.php';   // defines $conn
 $uid = (int) $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // —————————————————————————————
     // 1) PROCESS THE FORM SUBMISSION
-    // —————————————————————————————
     $qid         = (int) $_POST['id'];
     $title       = mysqli_real_escape_string($conn, $_POST['title'] ?? '');
     $description = mysqli_real_escape_string($conn, $_POST['description'] ?? '');
@@ -75,9 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// —————————————————————————————
 // 2) DISPLAY THE EDIT FORM
-// —————————————————————————————
 $qid = (int) ($_GET['id'] ?? 0);
 $res = mysqli_query(
     $conn,

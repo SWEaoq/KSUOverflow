@@ -1,6 +1,5 @@
 <?php
-// ask.php
-include 'config.php';   // starts the session
+include 'config.php';  
 
 // Require login
 if (!isset($_SESSION['user_id'])) {

@@ -1,5 +1,4 @@
 <?php
-// add_comment.php
 session_start();
 include 'config.php';
 

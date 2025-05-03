@@ -1,5 +1,4 @@
 <?php
-// login_process.php
 include 'config.php';   // starts session and gives you $conn
 
 // 1) Only accept POST requests

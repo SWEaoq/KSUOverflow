@@ -1,10 +1,6 @@
 <?php
-// login.php
 session_start();
 
-// Grab and clear any error from the session
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

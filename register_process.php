@@ -16,7 +16,7 @@ $email     = mysqli_real_escape_string($conn, $_POST['email']           ?? '');
 $pass1     = $_POST['password']        ?? '';
 $pass2     = $_POST['confirm_password']?? '';
 
-// 2) Basic validation
+// 2) validation
 if (!$first || !$last || !$username || !$email || !$pass1 || !$pass2) {
     $_SESSION['error'] = 'All fields are required.';
     header('Location: register.php');

@@ -1,5 +1,4 @@
 <?php
-// check_availability.php
 header('Content-Type: application/json');
 require_once 'config.php';  // starts session & gives $conn
 
