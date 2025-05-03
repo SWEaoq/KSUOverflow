@@ -152,3 +152,29 @@ body {
 button.btn-link.active{
      color: orange; 
 }  /* highlight active vote */
+
+.comment {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .comment .small {
+    font-size: 0.85rem;
+  }
+
+/* Make answer text bigger */
+#answers-list .card-body > p {
+    font-size: 1.25rem; /* or whatever you like */
+    line-height: 1.4;
+  }
+  
+  /* Make comment text smaller */
+  .comment p {
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+/* DEBUG: make cards obviously visible */
+.card {
+    border: 2px solid hotpink !important;
+  }
+  
+  

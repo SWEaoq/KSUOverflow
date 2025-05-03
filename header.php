@@ -1,5 +1,6 @@
 <?php
 // header.php
+session_start();
 include 'config.php';      // gives you $conn
 
 // if the user is logged in, grab their username
@@ -21,7 +22,27 @@ if (isset($_SESSION['user_id'])) {
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Search form -->
+      <form class="d-flex me-auto" action="search.php" method="GET">
+        <input
+          class="form-control form-control-sm me-2"
+          type="search"
+          name="q"
+          placeholder="Search questions…"
+          aria-label="Search"
+          value="<?= htmlspecialchars($_GET['q'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+          required
+        >
+        <input
+          type="hidden"
+          name="sort"
+          value="<?= htmlspecialchars($_GET['sort'] ?? 'newest', ENT_QUOTES, 'UTF-8') ?>"
+        >
+        <button class="btn btn-sm btn-light" type="submit">Search</button>
+      </form>
+
       <ul class="navbar-nav ms-auto align-items-center">
         <?php if ($userName): ?>
           <li class="nav-item">

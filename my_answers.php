@@ -12,11 +12,11 @@ include 'config.php';   // brings in $conn
 $uid    = (int) $_SESSION['user_id'];
 $sqlA   = "
     SELECT
-        a.id AS answer_id,
-        a.question_id,
+        a.id          AS answer_id,
+        a.question_id AS question_id,
         a.body,
         a.created_at,
-        q.title AS question_title
+        q.title       AS question_title
     FROM answers AS a
     JOIN questions AS q ON q.id = a.question_id
     WHERE a.user_id = $uid
@@ -69,7 +69,7 @@ $ansRes = mysqli_query($conn, $sqlA);
               </p>
             </div>
             <a
-              href="edit_answer.php?id=<?= $ans['answer_id'] ?>"
+              href="edit_answer.php?answer_id=<?= $ans['answer_id'] ?>&question_id=<?= $ans['question_id'] ?>"
               class="btn btn-sm btn-outline-secondary"
             >
               Edit
