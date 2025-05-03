@@ -80,16 +80,13 @@ if (isset($_SESSION['user_id'])) {
     <!-- Question + Vote Controls -->
     <div class="card mb-4">
       <div class="card-body">
-
         <div class="vote-controls mb-3 text-center">
           <button id="upvote-btn" data-vote="1" class="btn btn-link<?= $userVote===1 ? ' active' : '' ?>">▲</button>
           <span id="vote-score" class="vote-score"><?= $score ?></span>
           <button id="downvote-btn" data-vote="-1" class="btn btn-link<?= $userVote===-1 ? ' active' : '' ?>">▼</button>
         </div>
-
         <h2><?= htmlspecialchars($question['title'], ENT_QUOTES) ?></h2>
         <p><?= nl2br(htmlspecialchars($question['description'], ENT_QUOTES)) ?></p>
-
         <?php if ($tags): ?>
           <p>
             <?php foreach ($tags as $tag): ?>
@@ -99,7 +96,6 @@ if (isset($_SESSION['user_id'])) {
             <?php endforeach; ?>
           </p>
         <?php endif; ?>
-
         <p class="text-muted">
           Asked by <strong><?= htmlspecialchars($question['username'], ENT_QUOTES) ?></strong>
           on <?= date('F j, Y, g:i A', strtotime($question['created_at'])) ?>
@@ -111,8 +107,25 @@ if (isset($_SESSION['user_id'])) {
     <h4>Answers</h4>
     <div id="answers-list" class="mb-4"></div>
 
-    <!-- Answer Form -->
-    <?php if (isset($_SESSION['user_id'])): ?>
+    <!-- Answer Section -->
+    <?php if (isset($_SESSION['flash_error'])): ?>
+      <div class="alert alert-danger">
+        <?= htmlspecialchars($_SESSION['flash_error'], ENT_QUOTES) ?>
+      </div>
+      <?php unset($_SESSION['flash_error']); ?>
+    <?php endif; ?>
+
+    <?php if (!isset($_SESSION['user_id'])): ?>
+      <div class="alert alert-info">
+        <strong>
+          Please 
+          <a href="login.php?redirect=<?= urlencode("view_question.php?id={$qid}") ?>">log in</a> 
+          or 
+          <a href="register.php?redirect=<?= urlencode("view_question.php?id={$qid}") ?>">register</a> 
+          to post an answer.
+        </strong>
+      </div>
+    <?php else: ?>
       <div class="card" id="answer-form">
         <div class="card-body">
           <h5>Your Answer</h5>
@@ -125,8 +138,6 @@ if (isset($_SESSION['user_id'])) {
           </form>
         </div>
       </div>
-    <?php else: ?>
-      <p><a href="login.php">Log in</a> or <a href="register.php">register</a> to answer.</p>
     <?php endif; ?>
 
   </div>
