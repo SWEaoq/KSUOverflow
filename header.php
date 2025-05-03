@@ -1,17 +1,22 @@
 <?php
 // header.php
-session_start();
+
+// 1) Only start a session if none exists
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include 'config.php';      // gives you $conn
 
-// if the user is logged in, grab their username
+// 2) If the user is logged in, grab their username
 $userName = null;
-if (isset($_SESSION['user_id'])) {
+if (!empty($_SESSION['user_id'])) {
     $uid = (int) $_SESSION['user_id'];
     $res = mysqli_query(
         $conn,
-        "SELECT username FROM users WHERE id = $uid LIMIT 1"
+        "SELECT username FROM users WHERE id = {$uid} LIMIT 1"
     );
-    if ($row = mysqli_fetch_assoc($res)) {
+    if ($res && $row = mysqli_fetch_assoc($res)) {
         $userName = $row['username'];
     }
 }
@@ -19,7 +24,15 @@ if (isset($_SESSION['user_id'])) {
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.php">KSUOverflow</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 

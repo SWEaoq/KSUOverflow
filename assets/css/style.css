@@ -163,7 +163,7 @@ button.btn-link.active{
 
 /* Make answer text bigger */
 #answers-list .card-body > p {
-    font-size: 1.25rem; /* or whatever you like */
+    font-size: 1.25rem; 
     line-height: 1.4;
   }
   
@@ -172,9 +172,6 @@ button.btn-link.active{
     font-size: 0.85rem;
     line-height: 1.2;
   }
-/* DEBUG: make cards obviously visible */
-.card {
-    border: 2px solid hotpink !important;
-  }
+
   
   
