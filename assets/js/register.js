@@ -1,14 +1,48 @@
-document.getElementById("register-form").addEventListener("submit", function(event) {
-    event.preventDefault(); 
-
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirm-password").value;
-
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
+$(function(){
+    // Check availability for a field
+    function checkField(field){
+      const val = field.val().trim();
+      const feedback = field.is('#username')
+        ? $('#username-feedback')
+        : $('#email-feedback');
+  
+      // clear if empty
+      if (!val) {
+        feedback.text('');
         return;
+      }
+  
+      const params = {};
+      if (field.is('#username')) params.username = val;
+      if (field.is('#email'))    params.email    = val;
+  
+      $.getJSON('check_availability.php', params)
+        .done(function(resp){
+          if (field.is('#username')) {
+            feedback.text(resp.usernameTaken
+              ? 'That username is already taken.'
+              : ''
+            );
+          }
+          if (field.is('#email')) {
+            feedback.text(resp.emailTaken
+              ? 'That email is already registered.'
+              : ''
+            );
+          }
+        })
+        .fail(function(){
+          console.error('Availability check failed');
+        });
     }
-
-    alert("Registration successful!");
-    // Here you can add AJAX to send data to the backend later.
-});
+  
+    // Fire on blur (when the user leaves the field)
+    $('#username').on('blur', function(){
+      checkField($(this));
+    });
+  
+    $('#email').on('blur', function(){
+      checkField($(this));
+    });
+  });
+  

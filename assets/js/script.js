@@ -1,15 +1,37 @@
-$(document).ready(function () {
-    const sampleQuestions = [
-        { id: 1, title: "How to connect PHP with MySQL?", author: "Ali", date: "Mar 5, 2025" },
-        { id: 2, title: "Best practices for vanilla JavaScript?", author: "Fatima", date: "Mar 4, 2025" }
-    ];
+// assets/js/script.js
 
-    sampleQuestions.forEach(q => {
-        $("#questions-list").append(`
-            <div class="question p-3">
-                <a href="question.html?id=${q.id}" class="question-title">${q.title}</a>
-                <p class="text-muted">Asked by ${q.author} on ${q.date}</p>
-            </div>
-        `);
-    });
-});
+$(function() {
+    // 1) Load Latest Questions
+    if ($('#questions-list').length) {
+      $('#questions-list').load(
+        'questions_ajax.php',
+        function(responseTxt, statusTxt, xhr) {
+          if (statusTxt === 'error') {
+            $('#questions-list').html(
+              `<div class="alert alert-danger">
+                 Error loading questions: ${xhr.status} ${xhr.statusText}
+               </div>`
+            );
+          }
+        }
+      );
+    }
+  
+    // 2) Load Answers on the question page
+    if ($('#answers-list').length) {
+      const qid = new URLSearchParams(window.location.search).get('id');
+      $('#answers-list').load(
+        'answers_ajax.php?question_id=' + qid,
+        function(responseTxt, statusTxt, xhr) {
+          if (statusTxt === 'error') {
+            $('#answers-list').html(
+              `<div class="alert alert-danger">
+                 Error loading answers: ${xhr.status} ${xhr.statusText}
+               </div>`
+            );
+          }
+        }
+      );
+    }
+  });
+  
