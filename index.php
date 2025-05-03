@@ -1,7 +1,6 @@
 <?php
-// index.php
-session_start();         // so header.php can see $_SESSION
-include 'config.php';    // only needed if header.php expects $conn
+session_start();         
+include 'config.php';    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +13,7 @@ include 'config.php';    // only needed if header.php expects $conn
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet"
   >
-  <!-- jQuery + your AJAX loader -->
+  <!-- jQuery + AJAX loader -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="assets/js/script.js" defer></script>
   <!-- Google Fonts & favicon… -->

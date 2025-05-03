@@ -13,8 +13,8 @@ body {
 }
 
 /* Hero Section (Light Mode) */
+/* Reverted to original gradient */
 .hero {
-    /* Reverted to original gradient */
     background: linear-gradient(to right, #004085, #007bff);
     color: white;
     padding: 60px 0;
@@ -33,7 +33,7 @@ body {
 }
 
 /* Ensure hero text stays white */
-.hero h1, 
+.hero h1,
 .hero p {
     color: white !important;
 }
@@ -100,78 +100,46 @@ body {
     background-color: #002b5e;
 }
 
-/* ================================= */
-/* ==========   DARK MODE   ========= */
-/* ================================= */
-.dark-mode {
-    background-color: #121212;
-    color: #f8f9fa;
+/* Vote controls */
+.vote-controls {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
-/* Dark Mode Hero Override:
-   A darker blue gradient so it stays on-brand
-   but is clearly different from Light Mode. */
-.dark-mode .hero {
-    background: linear-gradient(to right, #00264d, #003b73);
+.vote-score {
+    display: inline-block;
+    width: 2rem;
+    text-align: center;
+    font-weight: bold;
 }
 
-/* Dark Mode Card */
-.dark-mode .card {
-    background-color: #1e1e1e;
-    color: #f8f9fa;
+button.btn-link.active {
+    color: orange;
 }
 
-/* Dark Mode Navbar */
-.dark-mode .navbar {
-    background-color: #0e1a2b !important;
-}
-
-/* Dark Mode Button Overrides */
-.dark-mode .btn-primary {
-    background-color: #007bff;
-}
-
-.dark-mode .btn-primary:hover {
-    background-color: #0056b3;
-}
-#logo{
-    background: transparent;
-}
-
-
-
-
-
-
-.vote-controls{
-     font-size: 1.5rem; text-align: center; margin-bottom: 1rem; 
-}
-.vote-score{
-     display: inline-block; width: 2rem; text-align: center; font-weight: bold; 
-}
-button.btn-link.active{
-     color: orange; 
-}  /* highlight active vote */
-
+/* Comments */
 .comment {
     margin-left: 1rem;
     margin-bottom: 0.5rem;
-  }
-  .comment .small {
-    font-size: 0.85rem;
-  }
+}
 
-/* Make answer text bigger */
+.comment .small {
+    font-size: 0.85rem;
+}
+
+/* Answer & comment text sizing */
 #answers-list .card-body > p {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
     line-height: 1.4;
-  }
-  
-  /* Make comment text smaller */
-  .comment p {
+}
+
+.comment p {
     font-size: 0.85rem;
     line-height: 1.2;
-  }
+}
 
-  
-  
+/* Logo transparency */
+#logo {
+    background: transparent;
+}
