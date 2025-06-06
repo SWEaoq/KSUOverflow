@@ -3,8 +3,9 @@ session_start();
 include 'config.php';  // provides $conn
 
 // 1) Get & sanitize inputs
-$q    = trim($_GET['q'] ?? '');
-$raw  = $_GET['sort'] ?? 'newest';
+$q   = trim($_GET['q'] ?? '');
+$tag = trim($_GET['tag'] ?? '');
+$raw = $_GET['sort'] ?? 'newest';
 
 // Determine sort mode and SQL order clause
 switch ($raw) {
@@ -22,16 +23,17 @@ switch ($raw) {
         break;
 }
 
-if ($q === '') {
+if ($q === '' && $tag === '') {
     header('Location: index.php');
     exit;
 }
 
 $qEsc = mysqli_real_escape_string($conn, $q);
+$tagEsc = mysqli_real_escape_string($conn, $tag);
 
 // 2) Query: include vote totals and tag list
 $sql = "
-  SELECT 
+  SELECT
     q.id,
     q.title,
     q.description,
@@ -40,7 +42,7 @@ $sql = "
     COALESCE(v.score, 0)      AS score,
     COALESCE(tg.tag_list, '') AS tag_list
   FROM questions q
-  LEFT JOIN users u 
+  LEFT JOIN users u
     ON u.id = q.user_id
 
   /* votes subquery */
@@ -58,11 +60,22 @@ $sql = "
     JOIN tags t ON t.id = qt.tag_id
     GROUP BY qt.question_id
   ) tg ON tg.question_id = q.id
+";
 
+if ($tag !== '') {
+    $sql .= "
+  JOIN question_tags qt2 ON qt2.question_id = q.id
+  JOIN tags t2 ON t2.id = qt2.tag_id
+  WHERE t2.name = '{$tagEsc}'
+";
+} else {
+    $sql .= "
   WHERE q.title       LIKE '%{$qEsc}%'
      OR q.description LIKE '%{$qEsc}%'
-  ORDER BY {$orderBy}
 ";
+}
+
+$sql .= "  ORDER BY {$orderBy}";
 
 $res = mysqli_query($conn, $sql);
 if (!$res) {
@@ -75,13 +88,14 @@ while ($row = mysqli_fetch_assoc($res)) {
     $questions[] = $row;
 }
 $count = count($questions);
+$displayTerm = $tag !== '' ? $tag : $q;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Search “<?= htmlspecialchars($q, ENT_QUOTES) ?>” – KSUOverflow</title>
+  <title>Search “<?= htmlspecialchars($displayTerm, ENT_QUOTES) ?>” – KSUOverflow</title>
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -97,11 +111,15 @@ $count = count($questions);
         <h1 class="h4 mb-1">Search Results</h1>
         <p class="text-muted mb-0">
           <?= $count ?> result<?= $count === 1 ? '' : 's' ?> for
-          “<strong><?= htmlspecialchars($q, ENT_QUOTES) ?></strong>”
+          “<strong><?= htmlspecialchars($displayTerm, ENT_QUOTES) ?></strong>”
         </p>
       </div>
       <form class="d-flex" action="search.php" method="GET">
-        <input type="hidden" name="q" value="<?= htmlspecialchars($q, ENT_QUOTES) ?>">
+        <?php if ($tag !== ''): ?>
+          <input type="hidden" name="tag" value="<?= htmlspecialchars($tag, ENT_QUOTES) ?>">
+        <?php else: ?>
+          <input type="hidden" name="q" value="<?= htmlspecialchars($q, ENT_QUOTES) ?>">
+        <?php endif; ?>
         <select name="sort" class="form-select form-select-sm me-2" onchange="this.form.submit()">
           <option value="newest" <?= $raw === 'newest' ? 'selected' : '' ?>>Newest</option>
           <option value="oldest" <?= $raw === 'oldest'  ? 'selected' : '' ?>>Oldest</option>
@@ -112,7 +130,7 @@ $count = count($questions);
 
     <?php if ($count === 0): ?>
       <div class="alert alert-warning">
-        No questions matched “<?= htmlspecialchars($q, ENT_QUOTES) ?>”.
+        No questions matched “<?= htmlspecialchars($displayTerm, ENT_QUOTES) ?>”.
       </div>
     <?php else: ?>
       <?php foreach ($questions as $row): ?>
@@ -139,7 +157,7 @@ $count = count($questions);
             <?php if ($tags): ?>
               <div class="mt-3">
                 <?php foreach ($tags as $tag): ?>
-                  <a href="search.php?q=<?= urlencode($tag) ?>"
+                  <a href="search.php?tag=<?= urlencode($tag) ?>"
                      class="badge bg-light text-primary me-1">
                     <?= htmlspecialchars($tag, ENT_QUOTES) ?>
                   </a>
