@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($res)) {
         <?php if ($tags): ?>
           <div class="mt-3">
             <?php foreach ($tags as $tag): ?>
-              <a href="search.php?q=<?= urlencode($tag) ?>" 
+              <a href="search.php?tag=<?= urlencode($tag) ?>"
                  class="badge bg-light text-primary me-1">
                 <?= htmlspecialchars($tag, ENT_QUOTES) ?>
               </a>

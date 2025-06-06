@@ -23,7 +23,7 @@ if (!empty($_SESSION['user_id'])) {
 }
 
 // 4. Prepare search form values
-$searchTerm = isset($_GET['q']) ? $_GET['q'] : '';
+$searchTerm = isset($_GET['tag']) ? $_GET['tag'] : (isset($_GET['q']) ? $_GET['q'] : '');
 $sortOrder  = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
